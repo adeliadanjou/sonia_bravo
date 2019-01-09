@@ -7,14 +7,16 @@ postMessageRoute.post('/messages',  (request, response, next) =>{
   const {destination, body} = request.body;
 
   messageApp(destination,body)
-  .then(resp => {
-    response.status(200);
-    response.send(`${resp.data}`)
-  })
-  .catch(e => {console.log('Error')
-    response.status(500)
-    response.send('Send again')
-  })
+  if (destination === "" || body === "") {
+    response.status(400);
+    response.send("destination and body cannot be empty");
+  } else if (!destination == String || !body == String) {
+    response.status(400);
+    response.send("This is not a string, do you know what a string is?");
+  } else if (destination == undefined || body == undefined) {
+    response.status(400);
+    response.send("Undefined is not possible option")
+  }
 });
 
 module.exports = postMessageRoute;
