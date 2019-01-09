@@ -4,7 +4,7 @@ let axiosError = function(destination, body) {
   return axios.post("http://localhost:9001/messages", { destination, body });
 };
 
-// let checkSonia = function() {
+///1
 axiosError("", "")
   .then(resp => {
     console.log("COMO QUE THEN?! TENEMOS UNA BRECHA DE SEGURIDAD!"); //500 ERROR porque son string vacias
@@ -14,6 +14,7 @@ axiosError("", "")
     // response.status(500)
     // response.send('Send again')
   });
+///2
 
 axiosError("1", "")
   .then(resp => {
@@ -24,7 +25,7 @@ axiosError("1", "")
     // response.status(500)
     // response.send('Send again')
   });
-
+///3
 axiosError(":)", ":P")
   .then(resp => {
     console.log(
@@ -36,7 +37,7 @@ axiosError(":)", ":P")
     // response.status(500)
     // response.send('Send again')
   });
-
+////4
 axiosError("@.es", "")
   .then(resp => {
     console.log("No es un correo, no te das cuenta?"); //500 error porque es una arroba en un string
@@ -46,7 +47,7 @@ axiosError("@.es", "")
     // response.status(500)
     // response.send('Send again')
   });
-
+////5
 axiosError("pepe", "pepa")
   .then(resp => {
     console.log(
@@ -58,7 +59,7 @@ axiosError("pepe", "pepa")
     // response.status(500)
     // response.send('Send again')
   });
-
+////6
 axiosError(
   "cabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallenge",
   "body"
@@ -73,7 +74,7 @@ axiosError(
     response.status(500);
     response.send("Send again");
   });
-
+////7
 axiosError("🖖👽", "body")
   .then(resp => {
     console.log("I want to believe... But this is not a good then"); //500 error, no puede poner emojis
@@ -85,7 +86,7 @@ axiosError("🖖👽", "body")
     // response.status(500);
     // response.send("Send again");
   });
-
+/////8
 axiosError("null", "null")
   .then(resp => {
     console.log("not null in then"); //500 error, no puede ser null
@@ -97,7 +98,7 @@ axiosError("null", "null")
     // response.status(500);
     // response.send("Send again");
   });
-
+/////9
   axiosError("[]", "[]")
   .then(resp => {
     console.log("NO. ES. UN. ARRAY"); //500 error, no puede ser null
@@ -109,7 +110,7 @@ axiosError("null", "null")
     // response.status(500);
     // response.send("Send again");
   });
-
+/////10
   axiosError("{}", "{}")
   .then(resp => {
     console.log("NO. ES. UN. OBJECT"); //500 error, no puede ser null
