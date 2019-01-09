@@ -6,7 +6,6 @@ postMessageRoute.post('/messages',  (request, response, next) =>{
   console.log(request.body)
   const {destination, body} = request.body;
 
-
    if (typeof destination !== "string" || typeof body !== "string") {
     response.status(400);
     response.send("Please enter valid strings in both areas");
@@ -24,7 +23,6 @@ postMessageRoute.post('/messages',  (request, response, next) =>{
   } 
 
   else {
-
   messageApp(destination,body)
   .then(resp => {
     response.status(200);
