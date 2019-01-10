@@ -3,8 +3,16 @@ services:
   exercise1:
     build: .
     ports:
-     - "9001:9001"
+      - "9001:9001"
+    depends_on:
+      - mongo
   messageapp:
     image: "cabify/backend-bootcamp-messageapp:latest"
     ports:
       - "3000:3000"
+  mongo:
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
