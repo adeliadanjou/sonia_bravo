@@ -3,8 +3,8 @@ const app = express();
 const bodyParser = require('body-parser')
 const mongoose     = require('mongoose');
 const indexRoute = require('./routes/index');
-const postMessageRoute = require('./routes/postMessage')
-
+const postMessageRoute = require('./routes/postMessages')
+const getMessagesRoute = require('./routes/getMessages')
 
 
   setTimeout(function(){
@@ -19,12 +19,12 @@ const postMessageRoute = require('./routes/postMessage')
   }, 25000);
 
 
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use('/', indexRoute)
 app.use('/', postMessageRoute)
+app.use('/', getMessagesRoute)
 
 app.listen(9001, () => {
   console.log('¡A la escucha en el puerto: 9001!')
