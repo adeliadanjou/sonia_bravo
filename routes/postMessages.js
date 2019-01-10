@@ -33,16 +33,20 @@ postMessageRoute.post('/messages',  (req, res, next) =>{
     res.send(`${resp.data}`
     )
   })
-  .catch(e => {console.log('Error')
-  
-   if(res.status(408)){
+  .catch(e => {
+
+   if(e.status === undefined){
      let status ="TIMEOUT"
      messageSave(destination,body, status)
-   } else {let status = "NO ENVIADO"
-   messageSave(destination,body, status)}
+     res.status(408)
+    res.send('Oh oh! Timeout!!!!')
+   } else {
+     let status = "NO ENVIADO"
+     messageSave(destination,body, status)
+     res.status(500)
+     res.send('Algo ocurrió patrón! Send Again')}
     
-    res.status(500)
-    res.send('Send again')
+    
   })
 }});
 
