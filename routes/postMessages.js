@@ -24,23 +24,23 @@ postMessageRoute.post('/messages',  (req, res, next) =>{
   } 
 
   else {
-  messageSave(destination,body)
-  .then(resp => {
-    res.status(200);
-    res.send(console.log("guardado en base de datos"))
-  })
-
-  .catch(resp => {
-    res.status(500);
-    res.send(console.log("NOOOO guardado en base de datos!!"))
-  })
-
+ 
   messageApp(destination,body)
   .then(resp => {
+    let status = "OK"
+    messageSave(destination,body, status)
     res.status(200);
-    res.send(`${resp.data}`)
+    res.send(`${resp.data}`
+    )
   })
   .catch(e => {console.log('Error')
+  
+   if(res.status(408)){
+     let status ="TIMEOUT"
+     messageSave(destination,body, status)
+   } else {let status = "NO ENVIADO"
+   messageSave(destination,body, status)}
+    
     res.status(500)
     res.send('Send again')
   })

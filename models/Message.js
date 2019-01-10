@@ -4,6 +4,7 @@ const Schema   = mongoose.Schema;
 const messageSchema = new Schema({
   destination: String, 
   body: String, 
+  status: {type: String, enum:["OK", "NO ENVIADO", "TIMEOUT"]}
        
 }, {
   timestamps: {

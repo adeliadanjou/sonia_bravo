@@ -16,7 +16,7 @@ const getMessagesRoute = require('./routes/getMessages')
         .catch(err => {
             console.error('Error connecting to mongo', err)
         });
-  }, 25000);
+  }, 22000);
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
