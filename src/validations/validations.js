@@ -12,14 +12,7 @@ let validation = function(req,res,next) {
  } else if (destination === "" || body === "") {
    res.status(400);
    res.send("Destination or body cannot be empty");
-
- } else if (destination !== "" && !destination.includes("@")){
-   res.status(400);
-   res.send("Destination has to be an email");
- } else if (destination.length > 30 || body.length > 30) {
-   res.status(400);
-   res.send("destination & body should not have more than 30 characters");
- } 
+ }
 
  else {
 
