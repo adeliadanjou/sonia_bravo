@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const indexRoute = require('./src/routes/index');
 const postMessageRoute = require('./src/routes/postMessages')
 const getMessagesRoute = require('./src/clients/getMessages')
-const mongoConnect = require('./mongoConnect')
+const mongoConnect = require('./src/database')
 
 
 mongoConnect()
@@ -18,6 +18,6 @@ app.use('/', indexRoute)
 app.use('/', postMessageRoute)
 app.use('/', getMessagesRoute)
 
-app.listen(9001, () => {
+app.listen(process.env.PORT, () => {
   console.log('¡A la escucha en el puerto: 9001!')
 });
