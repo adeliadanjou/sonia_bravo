@@ -1,7 +1,7 @@
 const express = require('express');
 const indexRoute = express.Router();
 
-indexRoute.get('/', (request, response, next) => {
+indexRoute.get('/', (response) => {
   response.send('Hola, mundo');
 });
 

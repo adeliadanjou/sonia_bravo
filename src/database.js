@@ -11,7 +11,7 @@ const mongoose       = require('mongoose');
                   .catch(err => {
                   console.error('Error connecting to mongo', err)
                        });
-         }, 15000);              
+         }, 22000);              
                            }
            
 

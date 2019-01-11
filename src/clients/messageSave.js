@@ -1,6 +1,5 @@
 const Message = require("../models/Message");
 
-
 let messageSave = function(destination,body, status) {
 
     var myMessage = new Message(
