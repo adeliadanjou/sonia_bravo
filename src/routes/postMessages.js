@@ -1,7 +1,7 @@
 const express = require('express');
 const postMessageRoute = express.Router();
-const messageApp = require('../messageApp')
-const messageSave = require('../messageSave')
+const messageApp = require('../messageApp/messageApp')
+const messageSave = require('../clients/messageSave')
 
 postMessageRoute.post('/messages',  (req, res, next) =>{
   console.log(req.body)

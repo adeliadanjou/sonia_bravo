@@ -1,23 +1,15 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const mongoose     = require('mongoose');
-const indexRoute = require('./routes/index');
-const postMessageRoute = require('./routes/postMessages')
-const getMessagesRoute = require('./routes/getMessages')
+const indexRoute = require('./src/routes/index');
+const postMessageRoute = require('./src/routes/postMessages')
+const getMessagesRoute = require('./src/clients/getMessages')
+const mongoConnect = require('./mongoConnect')
 
 
-  setTimeout(function(){
-    mongoose
-        .connect('mongodb://sonia_bravo_mongo_1/cabify', { useNewUrlParser: true })
-        .then(x => {
-            console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-        })
-        .catch(err => {
-            console.error('Error connecting to mongo', err)
-        });
-  }, 22000);
-
+mongoConnect()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

@@ -11,8 +11,7 @@ axiosError("", "")
   })
   .catch(e => {
     console.log("Todo correcto y bonito y precioso :)");
-    // response.status(500)
-    // response.send('Send again')
+    
   });
 ///2
 
@@ -22,8 +21,7 @@ axiosError("1", "")
   })
   .catch(e => {
     console.log("Todo correcto y bonito y precioso :)");
-    // response.status(500)
-    // response.send('Send again')
+    
   });
 ///3
 axiosError(":)", ":P")
@@ -34,13 +32,12 @@ axiosError(":)", ":P")
   })
   .catch(e => {
     console.log("Todo correcto y bonito y precioso :)");
-    // response.status(500)
-    // response.send('Send again')
+
   });
 ////4
 axiosError("@.es", "")
   .then(resp => {
-    console.log("No es un correo, no te das cuenta?"); //500 error porque es una arroba en un string
+    console.log("Destination is an email"); //500 error porque es una arroba en un string
   })
   .catch(e => {
     console.log("Todo correcto y bonito y precioso :)");

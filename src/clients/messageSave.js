@@ -1,4 +1,4 @@
-const Message = require("./models/Message");
+const Message = require("../models/Message");
 
 
 let messageSave = function(destination,body, status) {
@@ -8,10 +8,10 @@ let messageSave = function(destination,body, status) {
   
   myMessage.save()
   .then(resp => {
-    console.log("Guardado en base de datos")
+    console.log("Message saved succesfully:")
   })
   .catch(resp => {
-    console.log("NO guardado en base de datos!!")
+    console.log("Error while saving")
   })
  
 }
