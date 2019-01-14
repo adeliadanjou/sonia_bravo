@@ -1,5 +1,6 @@
 const messageApp = require('../messageApp/messageApp')
 const messageSave = require('../clients/messageSave')
+const pay = require('../clients/pay')
 
 let validation = function(req,res,next) {
   
@@ -17,11 +18,13 @@ let validation = function(req,res,next) {
 
  messageApp(destination,body)
  .then(resp => {
+   
    let status = "OK"
    messageSave(destination,body, status)
    res.status(200);
    res.send(`${resp.data}`
    )
+   pay()
  })
  .catch(e => {
 

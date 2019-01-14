@@ -11,10 +11,10 @@ let creditSave = function(amount,res) {
     
     myCredit.save()
     .then(credit => {
-      res.status(200).send("Credit updated!")
+      res.status(200).send("Your first credit added!!")
     })
     .catch(credit => {
-      res.status(500).send("Error updating credit")
+      res.status(500).send("Error adding credit. No cash no party")
     })
 
     } else {
@@ -32,13 +32,10 @@ let creditSave = function(amount,res) {
     }
   })
   .catch(error => {
-    console.log(error)
+    console.log("error bb")
   })
 
 }
-
- 
- 
 
 
 module.exports = creditSave;

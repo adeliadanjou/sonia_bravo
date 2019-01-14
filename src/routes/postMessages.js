@@ -1,11 +1,11 @@
 const express = require('express');
 const postMessageRoute = express.Router();
-const validation = require('../validations/validations')
+const creditValidation = require('../validations/creditValidation')
 
 
 postMessageRoute.post('/messages',  (req, res, next) =>{
   
-  validation(req,res,next)
+creditValidation(req,res,next);
 });
 
 
