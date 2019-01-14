@@ -12,12 +12,10 @@ let creditValidation = function(req,res,next) {
     }
   })
 
-  .catch(credit => {
+  .catch(error => {
     res.status(500).send("Error: No credit database")
-    console.log(credit[0].amount)
+    
   })
-
 }
-
 
 module.exports = creditValidation;

@@ -1,6 +1,6 @@
 const UserCredit = require("../models/UserCredit");
 
-let pay = function(amount,res,req) {
+let pay = function(res) {
   
   UserCredit.find({})
   .then(credit => {

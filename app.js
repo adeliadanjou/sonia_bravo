@@ -23,3 +23,7 @@ app.use('/', getMessagesRoute)
 app.listen(process.env.PORT, () => {
   console.log('¡A la escucha en el puerto: 9001!')
 });
+
+
+// http://sonia_bravo_messageapp_1:3000/message
+//mongodb://sonia_bravo_mongo_1/cabify
