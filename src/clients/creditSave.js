@@ -2,7 +2,7 @@ const UserCredit = require("../models/UserCredit");
 
 let creditSave = function(amount,res) {
   
-  UserCredit.find({})
+  return UserCredit.find({})
   .then(credit => {
     if(credit.length === 0){
 

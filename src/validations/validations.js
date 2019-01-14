@@ -1,6 +1,8 @@
 const messageApp = require('../messageApp/messageApp')
 const messageSave = require('../clients/messageSave')
 const pay = require('../clients/pay')
+const locks = require('locks');
+var mutex = locks.createMutex();
 
 let validation = function (req, res) {
 
@@ -28,9 +30,10 @@ let validation = function (req, res) {
         res.send(`${resp.data}`)
 
         //bloqueamos restas al crédito para que se resten de una en una:
-        lock()
+        mutex.lock(function () {
           pay()
-        unlock()
+        mutex.unlock();
+      });
 
       })
       .catch(e => {

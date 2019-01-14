@@ -2,10 +2,10 @@ const UserCredit = require("../models/UserCredit");
 
 let pay = function(res) {
   
-  UserCredit.find({})
+  return UserCredit.find({})
   .then(credit => {
    
-      UserCredit.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount - 100 })
+      return UserCredit.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount - 100 })
       .then(credit => {
 
         res.status(200).send("Payed!")
