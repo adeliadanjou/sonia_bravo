@@ -7,4 +7,5 @@ postMessageRoute.post('/messages',  (req, res, next) =>{
   validation(req,res,next)
 });
 
+
 module.exports = postMessageRoute;

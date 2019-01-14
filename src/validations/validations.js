@@ -13,7 +13,6 @@ let validation = function(req,res,next) {
    res.status(400);
    res.send("Destination or body cannot be empty");
  }
-
  else {
 
  messageApp(destination,body)

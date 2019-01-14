@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require('body-parser')
 const indexRoute = require('./src/routes/index');
 const postMessageRoute = require('./src/routes/postMessages')
+const postCreditRoute = require('./src/routes/postCredit')
 const getMessagesRoute = require('./src/clients/getMessages')
 const mongoConnect = require('./src/database')
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json())
 
 app.use('/', indexRoute)
 app.use('/', postMessageRoute)
+app.use('/', postCreditRoute)
 app.use('/', getMessagesRoute)
 
 app.listen(process.env.PORT, () => {
