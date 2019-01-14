@@ -82,6 +82,25 @@ QUESTIONS:
  - Depende de la app que estemos hablando. Todo es importante y todos estos errores de envío deberían de manejarse para que se intentasen hasta que no fallasen. Para mí es igualmente importante que si tengo una app y falla una búsqueda en la base de datos de un cliente y este tiene que intentarlo varias veces se va a molestar de que no funcione. También si está enviando un mensaje en un email y no llega molestará. 
 
 
+EXERCISE 4:
+
+models/Message.js --> created UserCredit model in order to have credit balance
+
+clients/creditSave.js --> created creditSave to recharge credit. We also lock the operation in order to protect it. 
+
+routes/postMessages.js --> updated. Here we call our post /messages to make messages but first we 
+call creditValidation in order to see if we have credit to post. 
+
+validations/creditValidation.js --> Here we see if we have credit to post messages or not.
+ If we haven't, a message appear telling you "No cash, No messages", If we have, then we call function validation.js:
+
+validations/creditValidation.js --> Now we have credit, we see if the message we sent have the proper body. If everything is OK and we send the message, then we call pay function, which substrate credit if the message is send with a status 200 and we also lock the operation in order to protect it.
+
+clients/pay.js --> created pay to substract credit when we send messages
+
+
+
+
 
 
 

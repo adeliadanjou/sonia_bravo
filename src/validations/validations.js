@@ -29,7 +29,7 @@ let validation = function (req, res) {
 
         //bloqueamos restas al crédito para que se resten de una en una:
         lock()
-           pay()
+          pay()
         unlock()
 
       })

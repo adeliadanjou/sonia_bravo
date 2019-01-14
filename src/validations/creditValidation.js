@@ -6,7 +6,7 @@ let creditValidation = function(req,res,next) {
   UserCredit.find({})
   .then(credit => {
   if(credit[0].amount === 0){
-    res.status(500).send("No cash, No messages :/")
+    res.status(500).send("No cash, No messages")
     } else {
       validation(req,res,next)
     }
