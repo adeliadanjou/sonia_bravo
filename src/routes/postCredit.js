@@ -5,8 +5,8 @@ const creditSave = require('../clients/creditSave')
 
 postCreditRoute.post('/credit',  (req, res, next) =>{
   const amount = req.body.amount;
-  
-  creditSave(amount)
+
+  creditSave(amount,res)
 });
 
 

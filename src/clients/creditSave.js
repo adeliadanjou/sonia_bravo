@@ -1,17 +1,16 @@
 const UserCredit = require("../models/UserCredit");
 
-let creditSave = function(amount) {
+let creditSave = function(amount,res) {
   
-
     var myCredit = new UserCredit(
       {amount});
   
   myCredit.save()
   .then(resp => {
-    console.log("Credit updated!")
+    res.status(200).send("Credit updated!")
   })
   .catch(resp => {
-    console.log("Error updating credit")
+    res.status(500).send("Error updating credit")
   })
  
 }
