@@ -12,7 +12,6 @@ const userCreditSchema = new Schema({
   }
 });
 
-
 const Credit = (mongo) => getConnection(mongo).model("Credit", userCreditSchema)
 
 module.exports = Credit;

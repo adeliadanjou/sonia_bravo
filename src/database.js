@@ -15,45 +15,33 @@ const mongoDT2 = mongoose.createConnection(process.env.CabifyReplica, {
 //      mongoDT1.isConnected = false;
 // })
 let db = {
-     mongoDT1: {isPrimary: true, isConnected: true, mongo: mongoDT1},
-     mongoDT2: {isPrimary: false, isConnected: true, mongo: mongoDT2},
+     mongoDT1: {isPrimary: true, mongo: mongoDT1},
+     mongoDT2: {isPrimary: false, mongo: mongoDT2},
 }
-
 
 
 let getConnection = function(mongo){
      if(mongo === "primary"){
-          // si mongoDT1 es true, conecta a la database1 y haz el modelo con ella
+          // si mongo es primary, conecta a la database1 y haz el modelo con ella
           return db.mongoDT1.isPrimary && db.mongoDT1.mongo.readyState === 1 ?
            db.mongoDT1.mongo : db.mongoDT2.mongo
-     } else if (mongo === "replica") {
-          // si mongoDT2 es true, conecta a la database2 y haz el modelo con ella
-          return db.mongoDT2.isPrimary && mongoose.connection.readyState === 1 ? 
-          db.mongo.mongoDT2 : console.log("hay que borrar el primer registro")
+     } else {
+          // si mongo es replica, conecta a la database2 y haz el modelo con ella
+          return !db.mongoDT2.isPrimary && db.mongoDT2.mongo.readyState === 1 ? 
+          db.mongoDT2.mongo : console.log("hay que borrar el primer registro")
      }
-     else {
-          console.log("esta mierda esta mal")
-     }
+    
 }
 
+let isReplicaOn = function(){
+     if(db.mongoDT1.mongo.readyState === 1 && db.mongoDT2.mongo.readyState === 1){
+         //si tengo las dos bases conectadas
+          return true
+     } 
+     else {
+          //si tengo una conectada
+           return false
+      } 
+     }
 
-
-// let mongoConnect = function (param) {
-//      const clear = setInterval(() => {
-//           mongoose.Promise = Promise;
-//           mongoose
-//                .createConnection(param, {
-//                     useNewUrlParser: true
-                    
-//                })
-//                .then(x => {
-//                     console.log(`Connected to Mongo! Database name: "${x.name}"`)
-//                     clearInterval(clear)
-//                })
-//                .catch(err => {
-//                     console.error('Error connecting to mongo', err)
-//                });
-//      }, 4000)
-// }
-
-module.exports = {getConnection, db};
+module.exports = {getConnection, db, isReplicaOn};
