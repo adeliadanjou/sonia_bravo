@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
+const {getConnection} = require("../database");
 
 const userCreditSchema = new Schema({
   amount: Number,
@@ -11,6 +12,7 @@ const userCreditSchema = new Schema({
   }
 });
 
-const UserCredit = mongoose.model('UserCredit', userCreditSchema);
 
-module.exports = UserCredit;
+const Credit = (mongo) => getConnection(mongo).model('Credit', userCreditSchema)
+
+module.exports = Credit;

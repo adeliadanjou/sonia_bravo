@@ -7,11 +7,8 @@ const indexRoute = require('./src/routes/index');
 const postMessageRoute = require('./src/routes/postMessages')
 const postCreditRoute = require('./src/routes/postCredit')
 const getMessagesRoute = require('./src/clients/getMessages')
-const mongoConnect = require('./src/database')
 
 
-mongoConnect(process.env.CabifyDT)
-mongoConnect(process.env.CabifyReplica)
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
