@@ -16,3 +16,11 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
+
+  mongo2:
+    
+    image: mongo
+    volumes:
+      - ./data2:/data/db
+    ports:
+      - "28018:27017"

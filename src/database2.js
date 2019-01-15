@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 
-let mongoConnect = function () {
+let mongoConnect2 = function () {
      const clear = setInterval(() => {
           mongoose.Promise = Promise;
           mongoose
-               .createConnection(process.env.CabifyDT, {
+               .createConnection(process.env.CabifyReplica, {
                     useNewUrlParser: true
                })
                .then(x => {
-                    console.log(`Connected to Mongo! Database name: "${x.name}"`)
+                    
+                console.log(`Connected to Mongo! Database name: "${x.name}"`)
                     clearInterval(clear)
                })
                .catch(err => {
@@ -17,4 +18,4 @@ let mongoConnect = function () {
      }, 4000)
 }
 
-module.exports = mongoConnect;
+module.exports = mongoConnect2;
