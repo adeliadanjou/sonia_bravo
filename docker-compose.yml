@@ -6,6 +6,7 @@ services:
       - "9001:9001"
     depends_on:
       - mongo
+     
   messageapp:
     image: "cabify/backend-bootcamp-messageapp:latest"
     ports:
@@ -17,10 +18,10 @@ services:
     ports:
       - "27017:27017"
 
-  mongo2:
-    
-    image: mongo
-    volumes:
-      - ./data2:/data/db
-    ports:
-      - "28018:27017"
+  # mongo2:
+  
+  #   image: mongo
+  #   volumes:
+  #     - ./data2:/data/db
+  #   ports:
+  #     - "28018:27017"

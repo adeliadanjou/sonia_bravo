@@ -6,6 +6,7 @@ let mongoConnect = function () {
           mongoose
                .createConnection(process.env.CabifyDT, {
                     useNewUrlParser: true
+                    
                })
                .then(x => {
                     console.log(`Connected to Mongo! Database name: "${x.name}"`)

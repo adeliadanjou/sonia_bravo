@@ -11,8 +11,11 @@ let creditSave = function(amount,res) {
     res.send("amount cannot be empty");
   }
   else {
-
+    // mutex.lock(function () {
+    //   mutex.unlock();
+    //   });
     return UserCredit.find({})
+
   .then(credit => {
     if(credit.length === 0){
 
