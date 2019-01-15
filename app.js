@@ -8,10 +8,10 @@ const postMessageRoute = require('./src/routes/postMessages')
 const postCreditRoute = require('./src/routes/postCredit')
 const getMessagesRoute = require('./src/clients/getMessages')
 const mongoConnect = require('./src/database')
-// const mongoConnect2 = require('./src/database2')
 
-mongoConnect()
-// mongoConnect2()
+
+mongoConnect(process.env.CabifyDT)
+mongoConnect(process.env.CabifyReplica)
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-let mongoConnect = function () {
+let mongoConnect = function (param) {
      const clear = setInterval(() => {
           mongoose.Promise = Promise;
           mongoose
-               .createConnection(process.env.CabifyDT, {
+               .createConnection(param, {
                     useNewUrlParser: true
                     
                })
