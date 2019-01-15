@@ -4,8 +4,10 @@ const creditValidation = require('../validations/creditValidation')
 
 
 postMessageRoute.post('/messages',  (req, res, next) =>{
+ 
+    creditValidation(req,res,next);
   
-creditValidation(req,res,next);
+
 });
 
 

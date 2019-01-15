@@ -1,8 +1,18 @@
 const UserCredit = require("../models/UserCredit");
 
 let creditSave = function(amount,res) {
-  
-  return UserCredit.find({})
+   
+  if (typeof amount !== "number") {
+    res.status(400);
+    res.send("Just numbers allowed");
+
+  } else if (amount === "") {
+    res.status(400);
+    res.send("amount cannot be empty");
+  }
+  else {
+
+    return UserCredit.find({})
   .then(credit => {
     if(credit.length === 0){
 
@@ -34,6 +44,8 @@ let creditSave = function(amount,res) {
   .catch(error => {
     console.log("error bb")
   })
+  }
+  
 
 }
 
