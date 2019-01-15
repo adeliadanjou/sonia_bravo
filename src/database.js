@@ -9,9 +9,14 @@ const mongoDT2 = mongoose.createConnection(process.env.CabifyReplica, {
      useNewUrlParser: true    
 });
 
+// mongoDT1.on("disconnect", function(){
+//      mongoDT2.isPrimary = true;
+//      mongoDT1.isPrimary = false;
+//      mongoDT1.isConnected = false;
+// })
 let db = {
-     mongoDT1: {isPrimary: true, mongo: mongoDT1},
-     mongoDT2: {isPrimary: false, mongo: mongoDT2},
+     mongoDT1: {isPrimary: true, isConnected: true, mongo: mongoDT1},
+     mongoDT2: {isPrimary: false, isConnected: true, mongo: mongoDT2},
 }
 
 

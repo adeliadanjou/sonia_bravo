@@ -19,9 +19,11 @@ let creditSave = function(amount,res) {
     .then(credit => {
     if(credit.length === 0){
 
-      var myCredit = new Credit("primary",
-        {amount});
-  
+      var CreditPrimary = Credit("primary");
+      var myCredit = new CreditPrimary({amount});
+      
+ 
+
     myCredit.save()
     .then(credit => {
 
@@ -35,7 +37,7 @@ let creditSave = function(amount,res) {
     
     else {
     
-      Credit.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount + amount })
+      Credit("primary").findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount + amount })
       .then(credit => {
 
         res.status(200).send("Credit updated!")
@@ -47,7 +49,7 @@ let creditSave = function(amount,res) {
     }
   })
   .catch(error => {
-    console.log("error bb")
+    console.log(error)
   })
   }
   
