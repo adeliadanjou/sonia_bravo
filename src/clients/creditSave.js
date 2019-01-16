@@ -31,7 +31,7 @@ let creditSave = function(amount,res) {
          ///////
          return Credit("replica").find({}) 
          .then(credit => {
-           console.log("entra")
+          
          if(credit.length === 0){ // SEGUNDA VACIA
      
            var CreditReplica = Credit("replica");
@@ -45,27 +45,11 @@ let creditSave = function(amount,res) {
    
          })
          .catch(credit => {
-           res.status(500).send("Error GUARDANDO LA SEGUNDA")
+           res.status(500).send("Error GUARDANDO LA SEGUNDA, hay que borrar la primera")
          })
      
-         } // SEGUNDA LLENA Y PRIMERA VACIA
-         
-         else {
-         
-          var CreditReplica = Credit("replica");
-          var myCredit = new CreditReplica({amount});
-
-          CreditReplica.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount + amount })
-          .then(credit => {
-    
-            res.status(200).send("la primera vacia estaba vacia, la segunda llena y ahora actualizadas!")
-          })
-          .catch(credit => {
-            res.status(500).send("Error updating credit")
-          })
-         
-     
-         }
+         } 
+       
        })
        .catch(error => {
          console.log(error)
@@ -81,19 +65,7 @@ let creditSave = function(amount,res) {
       }  // A PARTIR DE AQUI NO ESTA VACIO:
       
       else {   // BUSCO Y ACTUALIZO LAS DOS:
-        var CreditReplica = Credit("replica");
-        var myCredit = new CreditReplica({amount});
-
-        CreditReplica.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount + amount })
-        .then(credit => {
-  
-          console.log("actualizo la replica")
-        })
-        .catch(credit => {
-          res.status(500).send("Error updating credit")
-        })
-
-
+   
         var CreditPrimary = Credit("primary");
         var myCredit = new CreditPrimary({amount});
 
@@ -101,12 +73,29 @@ let creditSave = function(amount,res) {
         .then(credit => {
   
           console.log("actualizo la primera")
+
+          var CreditReplica = Credit("replica");
+
+          Credit("replica").find({}) 
+        .then(credit => {
+          CreditReplica.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount + amount })
+          .then(credit => {
+  
+            res.send("actualizada replica")
+            
+          })
+          .catch(credit => {
+            res.status(500).send("Error updating credit")
+          })
+         
+        })
+
         })
         .catch(credit => {
           res.status(500).send("Error updating credit")
         })
-       
-  
+
+    
       }
     })
     .catch(error => {
@@ -117,41 +106,7 @@ let creditSave = function(amount,res) {
     } ///replicaON false --- solo una base de datos    ESTO NO SE TOCA!!!!!!
 
     else {
-      return Credit("primary").find({})
-      .then(credit => {
-      if(credit.length === 0){
-  
-        var CreditPrimary = Credit("primary");
-        var myCredit = new CreditPrimary({amount});
-        
-  
-      myCredit.save()
-      .then(credit => {
-  
-        res.status(200).send("Your first credit added!!")
-      })
-      .catch(credit => {
-        res.status(500).send("Error adding credit. No cash no party")
-      })
-  
-      } 
-      
-      else {
-      
-        Credit("primary").findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount + amount })
-        .then(credit => {
-  
-          res.status(200).send("Credit updated ajá!")
-        })
-        .catch(credit => {
-          res.status(500).send("Error updating credit ajá")
-        })
-  
-      }
-    })
-    .catch(error => {
-      console.log(error)
-    })
+    res.send("One Database KO, retry later!")
     }
   }
   

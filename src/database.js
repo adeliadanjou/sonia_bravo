@@ -25,7 +25,7 @@ let getConnection = function(mongo){
           // si mongo es primary, conecta a la database1 y haz el modelo con ella
           return db.mongoDT1.isPrimary && db.mongoDT1.mongo.readyState === 1 ?
            db.mongoDT1.mongo : db.mongoDT2.mongo
-     } else {
+     } else if(mongo === "replica"){
           // si mongo es replica, conecta a la database2 y haz el modelo con ella
           return !db.mongoDT2.isPrimary && db.mongoDT2.mongo.readyState === 1 ? 
           db.mongoDT2.mongo : console.log("hay que borrar el primer registro")
