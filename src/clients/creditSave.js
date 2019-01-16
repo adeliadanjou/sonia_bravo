@@ -74,21 +74,21 @@ let creditSave = function(amount,res) {
   
           console.log("actualizo la primera")
 
-          var CreditReplica = Credit("replica");
+              var CreditReplica = Credit("replica");
 
-          Credit("replica").find({}) 
+        Credit("replica").find({}) 
+      .then(credit => {
+        CreditReplica.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount + amount })
         .then(credit => {
-          CreditReplica.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount + amount })
-          .then(credit => {
-  
-            res.send("actualizada replica")
-            
-          })
-          .catch(credit => {
-            res.status(500).send("Error updating credit")
-          })
-         
+
+          res.send("actualizada replica")
+          
         })
+        .catch(credit => {
+          res.status(500).send("Error updating credit")
+        })
+       
+      })
 
         })
         .catch(credit => {
