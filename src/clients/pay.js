@@ -23,8 +23,10 @@ let pay = function() {
               console.log("Payed Replica!")
             })
             .catch(credit2 => {
-              console.log("Error paying on Replica!")
-             
+              console.log("Error paying on Replica! Retry again")
+
+            var CreditPrimary = Credit("primary");
+             CreditPrimary.findOneAndUpdate({_id: credit2[0]._id}, { "amount" : credit2[0].amount + 100 })
             })
       
         })
@@ -42,9 +44,7 @@ let pay = function() {
   .catch(credit => {
     console.log("Didn't find any credit account!")
 
-    
   })
-
 }
 
 

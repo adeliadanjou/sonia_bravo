@@ -19,9 +19,16 @@ services:
       - "27017:27017"
 
   mongo2:
-  
     image: mongo
     volumes:
       - ./data2:/data/db
     ports:
       - "28018:27017"
+      
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    restart: always

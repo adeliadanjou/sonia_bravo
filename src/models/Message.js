@@ -3,9 +3,10 @@ const Schema   = mongoose.Schema;
 const {getConnection} = require("../database");
 
 const messageSchema = new Schema({
+  myId: {type: String, unique: true},
   destination: {type: String, match: /^\S+@\S+\.\S+$/},
   body: {type: String, maxlength: 30},
-  status: {type: String, enum:["OK", "NO ENVIADO", "TIMEOUT"]}
+  status: {type: String, enum:["PENDING","OK", "NO ENVIADO", "TIMEOUT"]}
        
 }, {
   timestamps: {
