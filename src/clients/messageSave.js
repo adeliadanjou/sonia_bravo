@@ -1,17 +1,34 @@
 const Message = require("../models/Message");
 
 let messageSave = function(destination,body, status) {
-
-    var myMessage = new Message(
-      {destination, body, status});
   
-  myMessage.save()
-  .then(resp => {
-    console.log("Message saved succesfully:")
+
+    var MessagePrimary = Message("primary");
+    var myMessageP = new MessagePrimary({destination,body,status});
+    
+  return myMessageP.save()
+  .then(myMessage => {
+     console.log("guardado primary")
+
+    var MessageReplica = Message("replica");
+    var myMessageR = new MessageReplica({destination,body,status});
+    
+  myMessageR.save()
+  .then(myMessage => {
+    return console.log("guardado en replica")
   })
-  .catch(resp => {
-    console.log("Error while saving")
+  .catch(myMessage => {
+    return console.log("error guardando en replica")
   })
+
+
+  })
+  .catch(myMessage => {
+   
+    return console.log("error guardando")
+  })
+
+
  
 }
 

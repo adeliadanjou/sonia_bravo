@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
+const {getConnection} = require("../database");
 
 const messageSchema = new Schema({
   destination: {type: String, match: /^\S+@\S+\.\S+$/},
@@ -13,5 +14,5 @@ const messageSchema = new Schema({
   }
 });
 
-const Message = mongoose.model('Message', messageSchema);
+const Message = (mongo) => getConnection(mongo).model("Message", messageSchema)
 module.exports = Message;

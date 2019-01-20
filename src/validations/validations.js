@@ -25,20 +25,16 @@ let validation = function (req, res) {
 
         let status = "OK"
         messageSave(destination, body, status)
-
+        pay()
+       
         res.status(200);
-        res.send(`${resp.data}`)
-
-        //bloqueamos restas al crédito para que se resten de una en una:
-        mutex.lock(function () {
-          pay()
-        mutex.unlock();
-      });
+        res.send("todo ok")  
+        
 
       })
-      .catch(e => {
+      .catch(resp => {
 
-        if (e.status === undefined) {
+        if (resp.status === undefined) {
           let status = "TIMEOUT"
           messageSave(destination, body, status)
           res.status(408)

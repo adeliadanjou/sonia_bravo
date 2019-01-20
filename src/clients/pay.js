@@ -1,22 +1,48 @@
-const UserCredit = require("../models/UserCredit");
+const Credit = require("../models/UserCredit");
 
-let pay = function(res) {
+let pay = function() {
   
-  return UserCredit.find({})
+   Credit("primary").find({})
   .then(credit => {
-   
-      return UserCredit.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount - 100 })
+      console.log(credit[0].amount)
+    
+      var CreditPrimary = Credit("primary");
+     
+      CreditPrimary.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount - 100 })
       .then(credit => {
+        console.log("Payed Primary!")
 
-        res.status(200).send("Payed!")
+        Credit("replica").find({})
+        .then(credit2 => {
+            console.log(credit2[0].amount)
+          
+            var CreditReplica = Credit("replica");
+           
+            CreditReplica.findOneAndUpdate({_id: credit2[0]._id}, { "amount" : credit2[0].amount - 100 })
+            .then(credit2 => {
+              console.log("Payed Replica!")
+            })
+            .catch(credit2 => {
+              console.log("Error paying on Replica!")
+             
+            })
+      
+        })
+        .catch(credit => {
+          console.log("Didn't find any credit account on Replica!")
+               
+        })
+        ////////////
       })
       .catch(credit => {
-        res.status(500).send("Error paying!")
+        console.log("Error paying!")
       })
 
   })
-  .catch(error => {
-    res.send("Didn't find any credit account!")
+  .catch(credit => {
+    console.log("Didn't find any credit account!")
+
+    
   })
 
 }

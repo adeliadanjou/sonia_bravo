@@ -26,40 +26,43 @@ let creditSave = function(amount,res) {
         
       myCredit.save() //PRIMERA LA LLENO
       .then(credit => {
-         console.log("primeraguardada");
+         console.log("primera guardada");
          
          ///////
-         return Credit("replica").find({}) 
-         .then(credit => {
+        Credit("replica").find({}) 
+         .then(credit2 => {
           
-         if(credit.length === 0){ // SEGUNDA VACIA
+         if(credit2.length === 0){ // SEGUNDA VACIA
      
            var CreditReplica = Credit("replica");
-           var myCredit = new CreditReplica({amount});
+           var myCredit2 = new CreditReplica({amount});
            
      
-         myCredit.save() // SEGUNDA LA LLENO
-         .then(credit => {
-          
+         myCredit2.save() // SEGUNDA LA LLENO
+         .then(
            res.status(200).send("TODO GUARDADO!") //GUARDADAS UNA Y DOS
-   
-         })
-         .catch(credit => {
-           res.status(500).send("Error GUARDANDO LA SEGUNDA, hay que borrar la primera")
-         })
-     
-         } 
-       
+         )
+         .catch(credit2 => {
+
+          var CreditPrimary = Credit("primary");
+          var myCredit = new CreditPrimary({amount});
+
+          CreditPrimary.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount - amount })
+
+           res.status(500).send("Error GUARDANDO LA SEGUNDA, borrada la primera")
+
+         }
+    
+         )} 
        })
        .catch(error => {
-         console.log(error)
+         console.log("no se ha encontrado base de datos replica")
        })
-
      
 
       })
       .catch(credit => {
-        res.status(500).send("Error adding credit")
+        res.status(500).send("Error adding credit to first database")
       })
   
       }  // A PARTIR DE AQUI NO ESTA VACIO:
@@ -77,22 +80,29 @@ let creditSave = function(amount,res) {
               var CreditReplica = Credit("replica");
 
         Credit("replica").find({}) 
-      .then(credit => {
-        CreditReplica.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount + amount })
-        .then(credit => {
+      .then(credit2 => {
+        
+        CreditReplica.findOneAndUpdate({_id: credit2[0]._id}, { "amount" : credit2[0].amount + amount })
+        .then(credit2 => {
 
           res.send("actualizada replica")
           
         })
-        .catch(credit => {
-          res.status(500).send("Error updating credit")
+        .catch(credit2 => {
+          var CreditPrimary = Credit("primary");
+          var myCredit = new CreditPrimary({amount});
+
+          CreditPrimary.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount - amount })
+          .then( res.status(500).send("Error updating credit in replica. deleting amount in first database"))
+   
         })
        
       })
 
         })
-        .catch(credit => {
-          res.status(500).send("Error updating credit")
+        .catch(credit => { //si no se guarda en primera
+         
+          res.status(500).send("Error updating credit in first database")
         })
 
     
