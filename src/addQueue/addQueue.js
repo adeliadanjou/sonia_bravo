@@ -18,28 +18,31 @@ messageQueue.process(function(job,done){
    .then(resp => {
  
      let status = "OK"
-     messageSave(myId, status)
-     .then(pay()) 
-     .catch(console.log("aloha"))
+     return messageSave(myId, status)
+     .then(function() {
+       // si quiero pasarle la funcion pay() ejecutada tengo que poner function...
+       return pay().then(done);
+     }) 
+     .catch(() => console.log("Ok mal hecho! Entra en el catch"))
  
    })
    .catch(resp => {
  
      if (resp.status === undefined) {
        let status = "TIMEOUT"
-       messageSave(myId, status)
+       return messageSave(myId, status) .then(done)
+       .catch(done);
     
-       console.log('Oh oh! Timeout!!!!')
+    
      } else {
        let status = "NO ENVIADO"
-       messageSave(myId, status)
+       return messageSave(myId, status) .then(done)
+       .catch(done);
  
-       console.log('Algo ocurrió patrón! Send Again')
      }
  
    })
-   .then(done())
-   .catch(done());
+  
  
  })
 

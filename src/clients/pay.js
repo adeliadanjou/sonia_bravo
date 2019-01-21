@@ -2,7 +2,7 @@ const Credit = require("../models/UserCredit");
 
 let pay = function() {
   
-   Credit("primary").find({})
+   return Credit("primary").find({})
   .then(credit => {
     
     if (credit[0].amount > 100){
@@ -18,7 +18,7 @@ let pay = function() {
           
             var CreditReplica = Credit("replica");
            
-            CreditReplica.findOneAndUpdate({_id: credit2[0]._id}, { "amount" : credit2[0].amount - 100 })
+            return CreditReplica.findOneAndUpdate({_id: credit2[0]._id}, { "amount" : credit2[0].amount - 100 })
             .then(credit2 => {
               console.log("Payed Replica!")
             })
@@ -26,7 +26,7 @@ let pay = function() {
               console.log("Error paying on Replica! Retry again")
 
             var CreditPrimary = Credit("primary");
-             CreditPrimary.findOneAndUpdate({_id: credit2[0]._id}, { "amount" : credit2[0].amount + 100 })
+             return CreditPrimary.findOneAndUpdate({_id: credit2[0]._id}, { "amount" : credit2[0].amount + 100 })
             })
       
         })
