@@ -6,7 +6,7 @@ const locks = require('locks');
 var mutex = locks.createMutex();
 
 let validation = function (req, res) {
- 
+
   const {
     _id,
     destination,
@@ -15,15 +15,15 @@ let validation = function (req, res) {
   } = req.body;
 
   if (typeof destination !== "string" || typeof body !== "string") {
-  
+
     console.log("Please enter valid strings in both areas");
 
   } else if (destination === "" || body === "") {
-   
+
     console.log("Destination or body cannot be empty");
   } else {
 
-    addToQueue(req,res)
+    addToQueue(req, res)
   }
 
 }

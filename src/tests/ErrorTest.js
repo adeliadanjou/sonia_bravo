@@ -1,7 +1,10 @@
 const axios = require("axios");
 
-let axiosError = function(destination, body) {
-  return axios.post("http://localhost:9001/messages", { destination, body });
+let axiosError = function (destination, body) {
+  return axios.post("http://localhost:9001/messages", {
+    destination,
+    body
+  });
 };
 
 ///1
@@ -12,7 +15,7 @@ axiosError("", "")
   })
   .catch(e => {
     console.log("OK");
-    
+
   });
 ///2
 
@@ -22,25 +25,13 @@ axiosError(1, 2)
   })
   .catch(e => {
     console.log("OK");
-    
+
   });
 
-///3
-// axiosError(":)", ":P")
-//   .then(resp => {
-//     console.log(
-//       "Destination & Body must not contain emojis inside"
-//     ); //500 error porque es un numero en un string
-//   })
-//   .catch(e => {
-//     console.log("OK");
 
-//   });
-
-////4
 axiosError("b@.es", "bla")
   .then(resp => {
-    console.log("OK"); 
+    console.log("OK");
   })
   .catch(e => {
     console.log("Destination should be an email");
@@ -51,7 +42,7 @@ axiosError("pepe", "pepa")
   .then(resp => {
     console.log(
       "Destination should be an email"
-    ); 
+    );
   })
   .catch(e => {
     console.log("OK");
@@ -59,9 +50,9 @@ axiosError("pepe", "pepa")
 
 ////6
 axiosError(
-  "cabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallenge",
-  "body"
-)
+    "cabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallengecabifybootcampCabifyChallenge",
+    "body"
+  )
   .then(resp => {
     console.log("Too long!!!"); //500 error, demasiados caracteres, limitar a 20 aprox;
   })
@@ -88,7 +79,7 @@ axiosError("null", "null")
 
   });
 /////9
-  axiosError("[]", "[]")
+axiosError("[]", "[]")
   .then(resp => {
     console.log("Destination & Body should be strings, not arrays allowed"); //500 error, no puede ser null
   })
@@ -97,7 +88,7 @@ axiosError("null", "null")
   });
 
 /////10
-  axiosError("{}", "{}")
+axiosError("{}", "{}")
   .then(resp => {
     console.log("Destination & Body should be strings, not objects allowed"); //500 error, no puede ser null
   })

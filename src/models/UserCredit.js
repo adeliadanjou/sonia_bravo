@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
-const {getConnection} = require("../database");
+const Schema = mongoose.Schema;
+const {
+  getConnection
+} = require("../database");
 
 const userCreditSchema = new Schema({
   amount: Number,
