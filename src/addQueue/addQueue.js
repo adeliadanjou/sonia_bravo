@@ -56,8 +56,7 @@ const messageObj = {
 pendingMessageSave(messageObj)
 
 messageQueue.add(messageObj)
- res.send(`processing your message ${messageObj.myId}`)
-
+res.send(`processing your message ${messageObj.myId}`)
 } 
 
 messageQueue.on('completed', function(job, result){

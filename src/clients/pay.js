@@ -4,8 +4,8 @@ let pay = function() {
   
    Credit("primary").find({})
   .then(credit => {
-      console.log(credit[0].amount)
     
+    if (credit[0].amount > 100){
       var CreditPrimary = Credit("primary");
      
       CreditPrimary.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount - 100 })
@@ -14,7 +14,7 @@ let pay = function() {
 
         Credit("replica").find({})
         .then(credit2 => {
-            console.log(credit2[0].amount)
+           
           
             var CreditReplica = Credit("replica");
            
@@ -39,7 +39,7 @@ let pay = function() {
       .catch(credit => {
         console.log("Error paying!")
       })
-
+    } else {console.log("no hay crédito suficiente")}
   })
   .catch(credit => {
     console.log("Didn't find any credit account!")

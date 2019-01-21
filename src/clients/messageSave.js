@@ -1,7 +1,7 @@
 const Message = require("../models/Message");
 
 let messageSave = function(myId, status) {
-  console.log(status)
+
   var MessagePrimary = Message("primary");
 
   MessagePrimary.findOneAndUpdate({myId: myId}, { "status" : status }) 
@@ -10,6 +10,7 @@ let messageSave = function(myId, status) {
       })
       .catch(console.log("ERRORRRRRR PRIMARY: PENDING ---> OK, TIMEOUT, ERROR"))
 
+      
   var MessageReplica = Message("replica");
     
   MessageReplica.findOneAndUpdate({myId: myId}, { "status" : status }) 
