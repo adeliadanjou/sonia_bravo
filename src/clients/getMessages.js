@@ -3,7 +3,9 @@ const getMessagesRoute = express.Router();
 const Message = require("../models/Message");
 
 getMessagesRoute.get('/messages',  (req, res, next) =>{
-  Message.find({}, (error, messagesFromDB) => {
+	var MessagePrimary = Message("primary");
+
+  MessagePrimary.find({}, (error, messagesFromDB) => {
 		if (error) {
 			next(error);
 		} else {

@@ -8,7 +8,7 @@ var mutex = locks.createMutex();
 let validation = function (req, res) {
  
   const {
-    myId,
+    _id,
     destination,
     body,
 

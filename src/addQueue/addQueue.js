@@ -6,7 +6,7 @@ const pay = require('../clients/pay')
 
 //creo la cola:
 const messageQueue = new Queue('messageQueue');
-const uuidv1 = require('uuid/v1');
+const uuidv4 = require('uuid/v4');
 
 messageQueue.process(function(job,done){
 
@@ -18,7 +18,7 @@ messageQueue.process(function(job,done){
    .then(resp => {
  
      let status = "OK"
-     messageSave(myId, destination, body, status)
+     messageSave(myId, status)
      .then(pay()) 
      .catch(console.log("aloha"))
  
@@ -27,12 +27,12 @@ messageQueue.process(function(job,done){
  
      if (resp.status === undefined) {
        let status = "TIMEOUT"
-       messageSave(myId, destination, body, status)
+       messageSave(myId, status)
     
        console.log('Oh oh! Timeout!!!!')
      } else {
        let status = "NO ENVIADO"
-       messageSave(myId, destination, body, status)
+       messageSave(myId, status)
  
        console.log('Algo ocurrió patrón! Send Again')
      }
@@ -43,25 +43,26 @@ messageQueue.process(function(job,done){
  
  })
 
-
-
 let addToQueue = function(req,res,next) { 
+const myId = uuidv4()
 
 const messageObj = {
-  myId: uuidv1(),
+  myId: myId,
   destination: req.body.destination,
   body: req.body.body,
   status: "PENDING",
 }
 
 pendingMessageSave(messageObj)
+
 messageQueue.add(messageObj)
-
-  .then(res.send(`processing your message ${messageObj.myId}`))
-.catch(res.send(`Your message with ${messageObj.myId} was not sent`));
-
-
+ res.send(`processing your message ${messageObj.myId}`)
 
 } 
+
+messageQueue.on('completed', function(job, result){
+  console.log("TRABAJO DE LA COLA HECHO")
+})
+
 
 module.exports = addToQueue;
