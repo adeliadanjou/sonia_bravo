@@ -24,7 +24,7 @@ let messageSave = function(myId,destination,body, status) {
   })
   .catch(myMessage => {
    
-    return console.log("error guardando")
+    return console.log("error guardando MESSAGESAVE")
   })
  
 }

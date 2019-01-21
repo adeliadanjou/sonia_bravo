@@ -1,5 +1,8 @@
 const Queue = require('bull');
 const pendingMessageSave = require('../clients/pendingMessageSave')
+const messageApp = require('../messageApp/messageApp')
+const messageSave = require('../clients/messageSave')
+const pay = require('../clients/pay')
 
 //creo la cola:
 const messageQueue = new Queue('messageQueue');
@@ -35,8 +38,8 @@ messageQueue.process(function(job,done){
 
     let status = "OK"
     messageSave(myId, destination, body, status)
-    pay()
-    console.log("todo ok")    
+    .then(pay()) 
+    .catch(console.log("aloha"))
 
   })
   .catch(resp => {
@@ -59,8 +62,8 @@ messageQueue.process(function(job,done){
 
 })
 
-//   .then(res.send(`processing your message ${messageObj.myId}`))
-// .catch(res.send(`Your message with ${messageObj.myId} was not sent`));
+  .then(res.send(`processing your message ${messageObj.myId}`))
+.catch(res.send(`Your message with ${messageObj.myId} was not sent`));
 
 
 

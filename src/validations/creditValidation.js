@@ -13,7 +13,7 @@ let creditValidation = function(req,res,next) {
   })
 
   .catch(error => {
-    console.log("entra en creditValidation")
+    console.log("entra en catch creditValidation")
     
   })
 
