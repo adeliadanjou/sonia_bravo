@@ -3,24 +3,17 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const indexRoute = require('../src/routes/index');
-const postMessageRoute = require('../src/routes/postMessages')
-const postCreditRoute = require('../src/routes/postCredit')
-const getMessagesRoute = require('../src/clients/getMessages')
-const getMessagesStatus = require('../src/clients/getMessagesStatus')
-
+const postCreditRoute = require('./routes/postCredit')
+const {creditQueue, messageQueue} = require('./creditQueue/creditQueue')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use('/', indexRoute)
-app.use('/', postMessageRoute)
 app.use('/', postCreditRoute)
-app.use('/', getMessagesRoute)
-app.use('/', getMessagesStatus)
+
 
 app.listen(process.env.PORT, () => {
-  console.log('¡A la escucha en el puerto: 9001!')
+  console.log('¡A la escucha en el puerto: 9017!')
 });
 
 

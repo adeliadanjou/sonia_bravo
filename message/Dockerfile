@@ -12,7 +12,7 @@ ADD . /app
 RUN npm install
 
 # El puerto donde esto funciona
-EXPOSE 9001
+EXPOSE 9007
 
 # Run app.py when the container launches
 CMD ["node", "app.js"]

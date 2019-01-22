@@ -1,6 +1,5 @@
-
-const addToQueue = require('../addQueue/addQueue')
-
+const {creditQueue} = require('../messageQueue/messageQueue');
+const uuidv4 = require('uuid/v4');
 
 let validation = function (req, res) {
 
@@ -18,7 +17,19 @@ let validation = function (req, res) {
 
     console.log("Destination or body cannot be empty");
   } else {
-    addToQueue(req, res)
+    // creo myId única:
+    const myId = uuidv4()
+    // creo el objeto a añadir a add:   
+    const messageObj = {
+        type: "Check Credit" ,
+        myId: myId,
+        destination: req.body.destination,
+        body: req.body.body,
+        status: "PENDING",
+    }
+    console.log("my id única")
+    // se lo añado a la cola de crédito:
+    creditQueue.add(messageObj)   
   }
 
 }

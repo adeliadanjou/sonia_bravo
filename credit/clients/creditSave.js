@@ -24,7 +24,7 @@ let creditSave = function(amount,res) {
         
       return myCredit.save() //PRIMERA LA LLENO
       .then(credit => {
-         console.log("primera guardada");
+         console.log("Credit saved into first database");
          
          ///////
         return Credit("replica").find({}) 
@@ -38,20 +38,20 @@ let creditSave = function(amount,res) {
      
          return myCredit2.save() // SEGUNDA LA LLENO
          .then(
-           console.log("TODO GUARDADO!") //GUARDADAS UNA Y DOS
+           console.log("Credit saved into second database. All saved!!!") //GUARDADAS UNA Y DOS
          )
          .catch(credit2 => {
 
           var CreditPrimary = Credit("primary");
         
-          console.log("Error GUARDANDO LA SEGUNDA, borrada la primera")
+          console.log("ERROR: Something went wrong saving into second database. First database credit restored!")
           return CreditPrimary.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount - amount })
          }
     
          )} 
        })
        .catch(error => {
-         console.log("No se ha encontrado base de datos replica")
+         console.log("Something went wrong into replicaCredit database")
        })
      
 
@@ -70,7 +70,7 @@ let creditSave = function(amount,res) {
         return CreditPrimary.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount + amount })
         .then(credit => {
   
-          console.log("actualizo la primera")
+          console.log("Updated first credit database")
            var CreditReplica = Credit("replica");
 
         return Credit("replica").find({}) 
@@ -78,14 +78,14 @@ let creditSave = function(amount,res) {
         
         return CreditReplica.findOneAndUpdate({_id: credit2[0]._id}, { "amount" : credit2[0].amount + amount })
         .then(credit2 => {
-          console.log("actualizada replica")
+          console.log("Updated second credit database. All saved!!")
           
         })
         .catch(credit2 => {
           var CreditPrimary = Credit("primary");
      
            return CreditPrimary.findOneAndUpdate({_id: credit[0]._id}, { "amount" : credit[0].amount - amount })
-          .then( res.status(500).send("Error updating credit in replica. deleting amount in first database"))
+          .then( res.status(500).send("Error updating credit in replica. Restoring credit into first database"))
         })
       })
 

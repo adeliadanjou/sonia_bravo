@@ -20,10 +20,10 @@ let messageSave = function (myId, status) {
         .then(messageP => {
           console.log("PENDING ---> OK, TIMEOUT, ERROR")
         })
-        .catch(console.log(" ERRORRRRRR REPLICA: PENDING ---> OK, TIMEOUT, ERROR"))
+        .catch(console.log(" ERRORRRRRR REPLICA: PENDING ---> OK..."))
 
     })
-    .catch(console.log("ERRORRRRRR PRIMARY: PENDING ---> OK, TIMEOUT, ERROR"))
+    .catch(console.log("ERRORRRRRR PRIMARY: PENDING ---> OK..."))
 
 
 
