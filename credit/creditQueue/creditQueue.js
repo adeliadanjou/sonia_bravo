@@ -6,10 +6,10 @@ const creditQueue = new Queue('creditQueue');
 const messageQueue = new Queue('messageQueue');
 const uuidv4 = require('uuid/v4');
 
-
 creditQueue.process(function (job, done) {
-   console.log(job)
-   return creditValidation(job).then(done)
+   return creditValidation(job)
+      .then(checkCredit => messageQueue.add(checkCredit))
+      .then(done)
 })
 
 // let addCreditQueue = function (req, res, next) {
@@ -33,4 +33,4 @@ creditQueue.process(function (job, done) {
 // })
 
 
-module.exports = {creditQueue, messageQueue};
+module.exports = {messageQueue, creditQueue};

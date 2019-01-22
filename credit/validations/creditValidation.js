@@ -1,13 +1,12 @@
 const Credit = require("../models/UserCredit");
 
-const {messageQueue} = require('../creditQueue/creditQueue')
-let creditValidation = function (req, res, next) {
-
+let creditValidation = function (job) {
+// console.log(job.data.myId)
 
     return Credit("primary").find({})
     .then(credit => {
       if (credit[0].amount === 0) {
-      
+
         let CheckCredit = {
           type: "check credit",
           myId: job.data.myId,
@@ -15,7 +14,7 @@ let creditValidation = function (req, res, next) {
           isCredit: "NO"
         }
         console.log("You have not credit")
-        return messageQueue.add(CheckCredit)
+        return CheckCredit
 
       } else {
 
@@ -26,7 +25,7 @@ let creditValidation = function (req, res, next) {
           isCredit: "YES"
         }
         console.log("you have enough credit")
-        return messageQueue.add(CheckCredit)
+        return CheckCredit
 
       }
     })
@@ -40,7 +39,7 @@ let creditValidation = function (req, res, next) {
         isCredit: "ERROR CHECKING CREDIT"
       }
       console.log("error checking credit")
-      return messageQueue.add(CheckCredit)
+      return CheckCredit;
     })
 
 }
