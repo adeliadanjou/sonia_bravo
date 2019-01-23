@@ -2,8 +2,8 @@ const Queue = require('bull');
 const pay = require('../clients/pay')
 const creditValidation = require('../validations/creditValidation')
 //creo la cola:
-const creditQueue = new Queue('creditQueue');
-const messageQueue = new Queue('messageQueue');
+const creditQueue = new Queue('creditQueue', 'redis://sonia_bravo_redis_1:6379');
+const messageQueue = new Queue('messageQueue', 'redis://sonia_bravo_redis_1:6379');
 
 
 creditQueue.process(function (job, done) {
@@ -14,7 +14,8 @@ creditQueue.process(function (job, done) {
             if(checkCredit.isCredit === "YES"){ 
                  pay().then(()=> messageQueue.add(checkCredit))
 
-               .then(done)}
+                 .then(done)
+                 .catch(done);}
             })
 
 })

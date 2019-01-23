@@ -1,8 +1,8 @@
 const Queue = require('bull');
 const messageApp = require('../messageApp/messageApp')
 const messageSave = require('../clients/messageSave')
-const messageQueue = new Queue('messageQueue');
-const creditQueue = new Queue('creditQueue');
+const messageQueue = new Queue('messageQueue', 'redis://sonia_bravo_redis_1:6379');
+const creditQueue = new Queue('creditQueue', 'redis://sonia_bravo_redis_1:6379');
 
 messageQueue.process(function (job, done) {
 
@@ -24,11 +24,8 @@ messageQueue.process(function (job, done) {
       let status = "OK"
     
       return messageSave(myId, status)
-        .then(function () {
-          // console.log("paga!")
-        console.log("hecho")
-        })
-        .catch(() => console.log("Ok mal hecho! Entra en el catch"))
+      .then(done)
+      .catch(done);
 
     })
     .catch(resp => {

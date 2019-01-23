@@ -4,13 +4,9 @@ let messageSave = function (myId, status) {
 
   var MessagePrimary = Message("primary");
 
-  return MessagePrimary.findOneAndUpdate({
-      myId: myId
-    }, {
-      "status": status
-    })
+  return MessagePrimary.findOneAndUpdate({ myId: myId}, {"status": status})
     .then(messageP => {
-      
+    
       var MessageReplica = Message("replica");
 
       return MessageReplica.findOneAndUpdate({

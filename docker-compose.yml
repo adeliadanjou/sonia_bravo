@@ -1,9 +1,9 @@
 version: "3"
 services:
-  message:
+  message1:
     build: message/
     ports:
-      - "9001:9007"
+      - "9009:9007"
     links:
       - messageapp
       - mongodb_message
@@ -19,7 +19,7 @@ services:
   message2:
     build: message/
     ports:
-      - "9002:9007"
+      - "9008:9007"
     links:
       - messageapp
       - mongodb_message
@@ -35,7 +35,7 @@ services:
   message3:
     build: message/
     ports:
-      - "9003:9007"
+      - "9007:9007"
     links:
       - messageapp
       - mongodb_message
@@ -99,3 +99,16 @@ services:
     image: redis
     ports:
       - 6379:6379
+
+  haproxy:
+    image: haproxy
+    container_name: haproxy
+    volumes:
+     - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    links:
+     - message1
+     - message2
+     - message3
+    ports:
+     - "80:80"
+ 
