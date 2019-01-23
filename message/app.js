@@ -1,4 +1,4 @@
-require('dotenv').config();
+  require('dotenv').config();
 
 const express = require('express');
 const app = express();
@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const postMessageRoute = require('./routes/postMessages')
 const getMessagesRoute = require('./clients/getMessages')
 const getMessagesStatus = require('./clients/getMessagesStatus')
-
+const getHealth = require('./routes/getHealth')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -15,6 +15,7 @@ app.use(bodyParser.json())
 app.use('/', postMessageRoute)
 app.use('/', getMessagesRoute)
 app.use('/', getMessagesStatus)
+app.use('/', getHealth)
 
 app.listen(process.env.PORT, () => {
   console.log('¡A la escucha en el puerto: 9007!')
