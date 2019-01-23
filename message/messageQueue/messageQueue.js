@@ -1,18 +1,12 @@
 const Queue = require('bull');
-// const pendingMessageSave = require('../clients/pendingMessageSave')
 const messageApp = require('../messageApp/messageApp')
 const messageSave = require('../clients/messageSave')
-// const pay = require('../clients/pay')
-
-//creo la cola:
 const messageQueue = new Queue('messageQueue');
 const creditQueue = new Queue('creditQueue');
-const uuidv4 = require('uuid/v4');
-
 
 messageQueue.process(function (job, done) {
 
-
+  console.log(job.data)
   if(job.data.type === "check credit" && job.data.isCredit === "NO"){
    console.log("Not enough credit")
    done()
@@ -59,21 +53,6 @@ messageQueue.process(function (job, done) {
   done()
 
 })
-
-// let addToQueue = function (req, res, next) {
-//   const myId = uuidv4()
-
-
-
-//   pendingMessageSave(messageObj)
-
-//   messageQueue.add(messageObj)
-//   res.send(`processing your message ${messageObj.myId}`)
-// }
-
-// messageQueue.on('completed', function (job, result) {
-//   console.log("TRABAJO DE LA COLA HECHO")
-// })
 
 
 module.exports = {messageQueue, creditQueue}
