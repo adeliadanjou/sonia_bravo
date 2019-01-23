@@ -19,11 +19,6 @@ messageQueue.process(function (job, done) {
   }
   else if(job.data.type === "check credit" && job.data.isCredit === "YES"){
 
-    let payObj = {
-      type: "Pay",
-      myId: job.data.message.myId
-    }
-    creditQueue.add(payObj)
 
   const myId = job.data.message.myId;
   const destination = job.data.message.destination;
@@ -36,9 +31,8 @@ messageQueue.process(function (job, done) {
     
       return messageSave(myId, status)
         .then(function () {
-          
-          // si quiero pasarle la funcion pay() ejecutada tengo que poner function...
-          // return pay().then(done);
+          // console.log("paga!")
+        console.log("hecho")
         })
         .catch(() => console.log("Ok mal hecho! Entra en el catch"))
 

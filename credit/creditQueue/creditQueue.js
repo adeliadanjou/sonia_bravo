@@ -8,10 +8,14 @@ const messageQueue = new Queue('messageQueue');
 
 creditQueue.process(function (job, done) {
 
+ 
    creditValidation(job)
-      .then(checkCredit => messageQueue.add(checkCredit))
-      .then(done())
+         .then(checkCredit => {
+            if(checkCredit.isCredit === "YES"){ 
+                 pay().then(()=> messageQueue.add(checkCredit))
 
+               .then(done)}
+            })
 
 })
 

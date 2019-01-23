@@ -23,9 +23,8 @@ let creditValidation = function (job) {
           isCredit: "YES"
         }
         console.log("You have enough credit")
-
         return CheckCredit
-
+        
       }
     })
 

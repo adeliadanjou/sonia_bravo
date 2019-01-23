@@ -1,5 +1,6 @@
 const Message = require("../models/Message");
 
+
 let pendingMessageSave = function (messageObj) {
 
   var MessagePrimary = Message("primary");
@@ -14,7 +15,8 @@ let pendingMessageSave = function (messageObj) {
     
       return myMessageR.save()
         .then(myMessage => {
-          console.log("guardado PENDING en replica")
+          return console.log("guardado PENDING en replica")
+       
         })
         .catch(myMessage => {
           return console.log("error guardando PENDING en replica")
@@ -22,7 +24,7 @@ let pendingMessageSave = function (messageObj) {
 
     })
     .catch(myMessage => {
-      console.log("error guardando PENDING en primary")
+      return console.log("error guardando PENDING en primary")
     })
 
  

@@ -1,6 +1,8 @@
-const {creditQueue} = require('../messageQueue/messageQueue');
 const uuidv4 = require('uuid/v4');
 const pendingMessageSave = require('../clients/pendingMessageSave')
+const {
+  creditQueue
+} = require('../messageQueue/messageQueue');
 
 let validation = function (req, res) {
 
@@ -18,21 +20,23 @@ let validation = function (req, res) {
 
     console.log("Destination or body cannot be empty");
   } else {
+
     // creo myId única:
     const myId = uuidv4()
     // creo el objeto a añadir a add:   
     const messageObj = {
-        type: "Check Credit" ,
-        myId: myId,
-        destination: req.body.destination,
-        body: req.body.body,
-        status: "PENDING",
+      type: "Check Credit",
+      myId: myId,
+      destination: req.body.destination,
+      body: req.body.body,
+      status: "PENDING",
     }
-    pendingMessageSave(messageObj).then(messageObj => creditQueue.add(messageObj) )
-    res.send(`processing your message ${messageObj.myId}`)
-   
-    // se lo añado a la cola de crédito:
-     
+
+    pendingMessageSave(messageObj).then(()=>{
+      creditQueue.add(messageObj)
+      res.send(`processing your message ${messageObj.myId}`)
+    })
+
   }
 
 }
