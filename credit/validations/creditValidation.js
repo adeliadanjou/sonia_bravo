@@ -1,7 +1,6 @@
 const Credit = require("../models/UserCredit");
 
 let creditValidation = function (job) {
-// console.log(job.data.myId)
 
     return Credit("primary").find({})
     .then(credit => {
@@ -17,14 +16,14 @@ let creditValidation = function (job) {
         return CheckCredit
 
       } else {
-
         let CheckCredit = {
           type: "check credit",
           myId: job.data.myId,
           message: job.data,
           isCredit: "YES"
         }
-        console.log("you have enough credit")
+        console.log("You have enough credit")
+
         return CheckCredit
 
       }

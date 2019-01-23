@@ -18,13 +18,12 @@ let messageSave = function (myId, status) {
           "status": status
         })
         .then(messageP => {
-          console.log("PENDING ---> OK, TIMEOUT, ERROR")
+          console.log("Primary & Replica: PENDING TO OK")
         })
-        .catch(console.log(" ERRORRRRRR REPLICA: PENDING ---> OK..."))
+        .catch(console.log("ERROR REPLICA: PENDING TO OK..."))
 
     })
-    .catch(console.log("ERRORRRRRR PRIMARY: PENDING ---> OK..."))
-
+    .catch(console.log("ERROR PRIMARY: PENDING TO OK..."))
 
 
 

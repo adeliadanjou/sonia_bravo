@@ -1,5 +1,6 @@
 const {creditQueue} = require('../messageQueue/messageQueue');
 const uuidv4 = require('uuid/v4');
+const pendingMessageSave = require('../clients/pendingMessageSave')
 
 let validation = function (req, res) {
 
@@ -27,9 +28,11 @@ let validation = function (req, res) {
         body: req.body.body,
         status: "PENDING",
     }
-    console.log("my id única")
+    pendingMessageSave(messageObj).then(messageObj => creditQueue.add(messageObj) )
+    res.send(`processing your message ${messageObj.myId}`)
+   
     // se lo añado a la cola de crédito:
-    creditQueue.add(messageObj)   
+     
   }
 
 }
