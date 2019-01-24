@@ -102,10 +102,13 @@ services:
 
   haproxy:
     image: haproxy
-    container_name: haproxy
     volumes:
      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     links:
+     - message1
+     - message2
+     - message3
+    depends_on:
      - message1
      - message2
      - message3
