@@ -1,5 +1,6 @@
 const uuidv4 = require('uuid/v4');
 const pendingMessageSave = require('../clients/pendingMessageSave')
+const manyLogs = require('./ManyPetitions')
 const {
   creditQueue
 } = require('../messageQueue/messageQueue');
@@ -32,9 +33,21 @@ let validation = function (req, res) {
       status: "PENDING",
     }
 
-    pendingMessageSave(messageObj).then(()=>{
+    let recovery = true;
+
+    creditQueue.count()
+    .then(queuecount =>  {
+      console.log(queuecount)
+      if(queuecount > 6){recovery === false}
+
+    if(queuecount >10 && recovery === false || queuecount <10 && recovery === false)
+    {console.log("cola desactivada"),res.send('Many connections, please try later!')}
+    else {
+    pendingMessageSave(messageObj).then(() => {
       creditQueue.add(messageObj)
       res.send(`processing your message ${messageObj.myId}`)
+    })
+    }
     })
 
   }

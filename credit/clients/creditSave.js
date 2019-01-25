@@ -1,6 +1,7 @@
 const Credit = require("../models/UserCredit");
 const {isReplicaOn} = require("../database");
 
+
 let creditSave = function(amount,res) {
    
   if (typeof amount !== "number") {

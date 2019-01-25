@@ -16,37 +16,37 @@ services:
       - replica_message
       - redis
 
-  message2:
-    build: message/
-    ports:
-      - "9008:9007"
-    links:
-      - messageapp
-      - mongodb_message
-      - replica_message
-      - redis
-      - credit
-    depends_on:
-      - messageapp
-      - mongodb_message
-      - replica_message
-      - redis
+  # message2:
+  #   build: message/
+  #   ports:
+  #     - "9008:9007"
+  #   links:
+  #     - messageapp
+  #     - mongodb_message
+  #     - replica_message
+  #     - redis
+  #     - credit
+  #   depends_on:
+  #     - messageapp
+  #     - mongodb_message
+  #     - replica_message
+  #     - redis
 
-  message3:
-    build: message/
-    ports:
-      - "9007:9007"
-    links:
-      - messageapp
-      - mongodb_message
-      - replica_message
-      - redis
-      - credit
-    depends_on:
-      - messageapp
-      - mongodb_message
-      - replica_message
-      - redis
+  # message3:
+  #   build: message/
+  #   ports:
+  #     - "9007:9007"
+  #   links:
+  #     - messageapp
+  #     - mongodb_message
+  #     - replica_message
+  #     - redis
+  #     - credit
+  #   depends_on:
+  #     - messageapp
+  #     - mongodb_message
+  #     - replica_message
+  #     - redis
 
   credit:
     build: credit/
@@ -106,12 +106,12 @@ services:
      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     links:
      - message1
-     - message2
-     - message3
+    #  - message2
+    #  - message3
     depends_on:
      - message1
-     - message2
-     - message3
+    #  - message2
+    #  - message3
     ports:
      - "80:80"
  

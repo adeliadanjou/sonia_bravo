@@ -6,6 +6,9 @@ const validation = require('../validations/validations')
 postMessageRoute.post('/messages', (req, res, next) => {
     
     validation(req,res)
+    // message = prepareMessage(req.body)
+    // enqueueToCretit(message)
+    // res(oK)
 });
 
 

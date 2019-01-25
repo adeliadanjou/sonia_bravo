@@ -8,7 +8,6 @@ const messageQueue = new Queue('messageQueue', 'redis://sonia_bravo_redis_1:6379
 
 creditQueue.process(function (job, done) {
 
- 
    creditValidation(job)
          .then(checkCredit => {
             if(checkCredit.isCredit === "YES"){ 
@@ -21,8 +20,9 @@ creditQueue.process(function (job, done) {
 })
 
 
-
 module.exports = {
    messageQueue,
    creditQueue
 };
+
+
