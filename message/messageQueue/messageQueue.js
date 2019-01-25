@@ -46,9 +46,7 @@ messageQueue.process(function (job, done) {
     console.log("ERROR").then(done)
   }
 
-
 })
-
 
 module.exports = {
   messageQueue,

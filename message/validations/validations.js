@@ -1,6 +1,5 @@
 const uuidv4 = require('uuid/v4');
 const pendingMessageSave = require('../clients/pendingMessageSave')
-const manyLogs = require('./ManyPetitions')
 const {
   creditQueue
 } = require('../messageQueue/messageQueue');
@@ -21,8 +20,8 @@ let validation = function (req, res) {
 
     console.log("Destination or body cannot be empty");
   } else {
-
-    // creo myId única:
+     
+  
     const myId = uuidv4()
     // creo el objeto a añadir a add:   
     const messageObj = {
@@ -37,8 +36,8 @@ let validation = function (req, res) {
 
     creditQueue.count()
     .then(queuecount =>  {
-      console.log(queuecount)
-      if(queuecount > 6){recovery === false}
+     
+      if(queuecount > 6){recovery = false}
 
     if(queuecount >10 && recovery === false || queuecount <10 && recovery === false)
     {console.log("cola desactivada"),res.send('Many connections, please try later!')}
@@ -47,10 +46,9 @@ let validation = function (req, res) {
       creditQueue.add(messageObj)
       res.send(`processing your message ${messageObj.myId}`)
     })
-     
-
   }
+})
 
-}
-
-module.exports = validation;
+  }}
+  
+module.exports = validation

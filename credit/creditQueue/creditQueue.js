@@ -9,13 +9,13 @@ const messageQueue = new Queue('messageQueue', 'redis://sonia_bravo_redis_1:6379
 creditQueue.process(function (job, done) {
 
    creditValidation(job)
-         .then(checkCredit => {
-            if(checkCredit.isCredit === "YES"){ 
-                 pay().then(()=> messageQueue.add(checkCredit))
-
-                 .then(done)
-                 .catch(done);}
-            })
+      .then(checkCredit => {
+         if (checkCredit.isCredit === "YES") {
+            pay().then(() => messageQueue.add(checkCredit))
+               .then(done)
+               .catch(done);
+         }
+      })
 
 })
 
@@ -24,5 +24,3 @@ module.exports = {
    messageQueue,
    creditQueue
 };
-
-
