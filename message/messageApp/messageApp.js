@@ -12,9 +12,7 @@ let messageApp = function (destination, body) {
     throw ("OK")
   })
   .catch(error => { 
-    console.log("\n\nTODO ERROR 2\n")
-        console.log(error)
-        console.log("\n\n\n")
+
     if(error.response===undefined){throw new Error("Timed out")}
     else{throw new Error("Breaker is open")}
 })

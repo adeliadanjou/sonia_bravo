@@ -47,8 +47,7 @@ let validation = function (req, res) {
       creditQueue.add(messageObj)
       res.send(`processing your message ${messageObj.myId}`)
     })
-    }
-    })
+     
 
   }
 

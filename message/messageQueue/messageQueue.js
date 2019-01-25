@@ -18,10 +18,6 @@ messageQueue.process(function (job, done) {
 
     return breaker.fire(destination, body)
       .then(resp => {
-        console.log("\n\nTODO OK\n")
-        console.log(resp)
-        console.log("\n\n\n")
-
         let status = resp.message
 
         return messageSave(myId, status)
@@ -30,9 +26,7 @@ messageQueue.process(function (job, done) {
 
       })
       .catch(error => {
-        console.log("\n\nTODO ERROR\n")
-        console.log(error)
-        console.log("\n\n\n")
+      
         if (error.message === "Timed out") {
           let status = error
           return messageSave(myId, status).then(done)
@@ -42,7 +36,7 @@ messageQueue.process(function (job, done) {
           return messageSave(myId, status).then(done)
             .catch(done);
         } else {
-          let status = "Error HTTP: NO ENVIADO"
+          let status = error
           return messageSave(myId, status).then(done)
             .catch(done);
         }
