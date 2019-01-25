@@ -15,16 +15,16 @@ let pendingMessageSave = function (messageObj) {
     
       return myMessageR.save()
         .then(myMessage => {
-          return console.log("guardado PENDING en replica")
+          // return console.log("guardado PENDING en replica")
        
         })
         .catch(myMessage => {
-          return console.log("error guardando PENDING en replica")
+          return console.log(myMessage)
         })
 
     })
     .catch(myMessage => {
-      return console.log("error guardando PENDING en primary")
+      return console.log(myMessage)
     })
 
  

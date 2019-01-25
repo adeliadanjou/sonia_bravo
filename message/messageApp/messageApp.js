@@ -8,6 +8,13 @@ let messageApp = function (destination, body) {
   }, {
     timeout: 9000
   })
+  .then(resp => {
+    throw ("Mensaje enviado")
+  })
+  .catch(error => { 
+    if(error.response===undefined){throw new Error("Timed out")}
+    else{throw new Error("Breaker is open")}
+})
 }
 
 module.exports = messageApp;
