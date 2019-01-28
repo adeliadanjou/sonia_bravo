@@ -1,4 +1,5 @@
 const Message = require("../models/Message");
+const logger = require('../logs/winston')
 
 let updateMessage = function (myId, status) {
 
@@ -10,11 +11,11 @@ let updateMessage = function (myId, status) {
       var MessageReplica = Message("replica");
       return MessageReplica.findOneAndUpdate({ myId: myId }, {"status": status})
         .then(messageP => {
-          console.log("Primary & Replica: PENDING TO OK")
+          logger.info("Primary & Replica: PENDING TO OK")
         })
-        .catch(console.log("ERROR REPLICA: PENDING TO OK..."))
+        .catch(logger.error("ERROR REPLICA: PENDING TO OK..."))
     })
-    .catch(console.log("ERROR PRIMARY: PENDING TO OK..."))
+    .catch(logger.error("ERROR PRIMARY: PENDING TO OK..."))
 
 }
 

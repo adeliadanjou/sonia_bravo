@@ -42,22 +42,20 @@ function isQueueLengthOk(recovery,res) {
     return creditQueue.count()
         .then(queuecount => {
             
-            if(!recovery){
+            if(recovery === false){
                 if(queuecount >10){
                     recovery=true;
-                    res.send("Many petitions, please try later!")
                     return false;
                 }
                 if(queuecount <10){return true}
             }
 
-            if(recovery){
+            if(recovery === true){
                 if(queuecount <5){
                     recovery=false;
                     return true;
                 }
                 if(queuecount >5){
-                  res.send("Many petitions, please try later!")
                   return false}
             }
            

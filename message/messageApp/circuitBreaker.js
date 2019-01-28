@@ -1,5 +1,6 @@
 const circuitBreaker = require('opossum');
 const messageApp = require('./messageApp')
+const logger = require('../logs/winston')
 
 
 const options = {
@@ -9,9 +10,9 @@ const options = {
 };
 const breaker = circuitBreaker(messageApp, options);
 
-breaker.on('success', (result) => console.log( "*******************    SUCCESS    ********************"));
+breaker.on('success', (result) => logger.info( "*******************    SUCCESS    ********************"));
 // breaker.on('reject', (result) => console.log( "*******************    REJECT    ********************"));
-breaker.on('timeout', (result) => console.log("*******************    TIMEOUT    *******************"));
+breaker.on('timeout', (result) => logger.info("*******************    TIMEOUT    *******************"));
 
 
 
