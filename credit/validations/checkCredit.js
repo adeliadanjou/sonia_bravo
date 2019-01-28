@@ -1,4 +1,5 @@
 const Credit = require("../models/UserCredit");
+const logger = require('../logs/winston')
 
 let checkCredit = function (job) {
 
@@ -12,7 +13,7 @@ let checkCredit = function (job) {
           message: job.data,
           isCredit: "NO"
         }
-        console.log("You have not credit")
+        logger.warn("You have not credit")
         return CheckCredit
 
       } else {
@@ -22,21 +23,21 @@ let checkCredit = function (job) {
           message: job.data,
           isCredit: "YES"
         }
-        console.log("You have enough credit")
+        logger.info("You have enough credit")
         return CheckCredit
         
       }
     })
 
     .catch(error => {
-      console.log(error)
+      
       let CheckCredit = {
         type: "check credit",
         myId: job.data.myId,
         message: job.data,
         isCredit: "ERROR CHECKING CREDIT"
       }
-      console.log("error checking credit")
+      logger.error("Error checking credit")
       return CheckCredit;
     })
 

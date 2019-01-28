@@ -11,7 +11,7 @@ const options = {
 const breaker = circuitBreaker(messageApp, options);
 
 breaker.on('success', (result) => logger.info( "*******************    SUCCESS    ********************"));
-// breaker.on('reject', (result) => console.log( "*******************    REJECT    ********************"));
+breaker.on('reject', (result) => logger.info( "*******************    REJECT    ********************"));
 breaker.on('timeout', (result) => logger.info("*******************    TIMEOUT    *******************"));
 
 

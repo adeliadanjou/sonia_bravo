@@ -6,6 +6,7 @@ const pendingMessageSave = require('../clients/pendingMessageSave')
 const {
     creditQueue
 } = require('../messageQueue/messageQueue');
+const logger = require('../logs/winston')
 let recovery = false;
 
 postMessageRoute.post('/messages', (req, res, next) => {
@@ -15,12 +16,15 @@ postMessageRoute.post('/messages', (req, res, next) => {
         if (isQueueLengthOk(recovery, res)) {
             pendingMessageSave(messageObj).then(() => {
                 creditQueue.add(messageObj)
+                logger.warn("Pending Message Saved")
                 res.send(`processing your message ${messageObj.myId}`)
             })
         }
-        else {res.send('Many connections, please try later!')} } 
+        else {
+            logger.warn("Many connections in postMessageRoute")
+            res.send('Many connections, please try later!')} } 
     else {
-        console.log("Not valid destination or body")
+        logger.warn("Not valid destination or body")
     }
 });
 

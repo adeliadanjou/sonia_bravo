@@ -7,15 +7,15 @@ let updateMessage = function (myId, status) {
 
   return MessagePrimary.findOneAndUpdate({ myId: myId}, {"status": status})
     .then(messageP => {
-    
+      logger.info("Updated message status in Primary")
       var MessageReplica = Message("replica");
       return MessageReplica.findOneAndUpdate({ myId: myId }, {"status": status})
         .then(messageP => {
-          logger.info("Primary & Replica: PENDING TO OK")
+          logger.info("Primary & Replica: UPDATED PENDING TO OK, TIMEOUT...")
         })
-        .catch(logger.error("ERROR REPLICA: PENDING TO OK..."))
+        .catch(logger.error("ERROR REPLICA: PENDING TO OK, TIMEOUT..."))
     })
-    .catch(logger.error("ERROR PRIMARY: PENDING TO OK..."))
+    .catch(logger.error("ERROR PRIMARY: PENDING TO OK,TIMEOUT..."))
 
 }
 

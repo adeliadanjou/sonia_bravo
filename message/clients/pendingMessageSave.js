@@ -1,4 +1,5 @@
 const Message = require("../models/Message");
+const logger = require('../logs/winston')
 
 let pendingMessageSave = function (messageObj) {
 
@@ -7,21 +8,21 @@ let pendingMessageSave = function (messageObj) {
 
   return myMessageP.save()
     .then(myMessage => {
-
+      logger.info("Saved PENDING in primary")
       var MessageReplica = Message("replica");
       var myMessageR = new MessageReplica(messageObj);
     
       return myMessageR.save()
         .then(myMessage => {
-          return console.log("guardado PENDING en replica")
+          return logger.info("Saved PENDING in replica")
         })
-        .catch(myMessage => {
-          return console.log(myMessage)
+        .catch(err => {
+          return logger.error(err)
         })
 
     })
-    .catch(myMessage => {
-      return console.log(myMessage)
+    .catch(err => {
+      return logger.error(err)
     })
 
 

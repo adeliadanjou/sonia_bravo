@@ -1,4 +1,5 @@
 const Credit = require("../models/UserCredit");
+const logger = require('../logs/winston')
 
 let pay = function () {
 
@@ -14,11 +15,10 @@ let pay = function () {
             "amount": credit[0].amount - 100
           })
           .then(credit => {
-            console.log("Payed Primary!")
+            logger.info("Payed Primary!")
 
             Credit("replica").find({})
               .then(credit2 => {
-
 
                 var CreditReplica = Credit("replica");
 
@@ -28,10 +28,10 @@ let pay = function () {
                     "amount": credit2[0].amount - 100
                   })
                   .then(credit2 => {
-                    console.log("Payed Replica!")
+                    logger.info("Payed Replica!")
                   })
                   .catch(credit2 => {
-                    console.log("Error paying on Replica! Retry again")
+                    logger.error("Error paying on Replica!")
 
                     var CreditPrimary = Credit("primary");
                     return CreditPrimary.findOneAndUpdate({
@@ -43,20 +43,19 @@ let pay = function () {
 
               })
               .catch(credit => {
-                console.log("Didn't find any credit account on Replica!")
-
+                logger.error("Didn't find any credit account on Replica!")
               })
-            ////////////
+         
           })
           .catch(credit => {
-            console.log("Error paying!")
+            logger.error("Error paying!")
           })
       } else {
-        console.log("no hay crédito suficiente")
+        logger.warn("No hay crédito suficiente")
       }
     })
     .catch(credit => {
-      console.log("Didn't find any credit account!")
+      logger.error("Didn't find any credit account!")
 
     })
 }

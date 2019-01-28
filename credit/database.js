@@ -30,7 +30,7 @@ let getConnection = function (mongo) {
      } else if (mongo === "replica") {
           // si mongo es replica, conecta a la database2 y haz el modelo con ella
           return !db.replicaCredit.isPrimary && db.replicaCredit.mongo.readyState === 1 ?
-               db.replicaCredit.mongo : console.log("hay que borrar el primer registro")
+               db.replicaCredit.mongo : db.mongodbMessage.mongo
      }
 
 }

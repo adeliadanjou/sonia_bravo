@@ -1,4 +1,5 @@
 const Credit = require("../models/UserCredit");
+const logger = require('../logs/winston')
 const {
   isReplicaOn
 } = require("../database");
@@ -14,19 +15,19 @@ let creditSave = function (amount, res) {
           savePrimary(credit)
 
             .then(credit => {
-
+              logger.info("Credit saved in primary database")
               return Credit("replica").find({})
                 .then(credit2 => {
 
                   if (credit2.length === 0) {
                    saveReplica(credit2)
                       .then(
-                        console.log("Credit saved into second database. All saved!!!") 
+                       logger.info("Credit saved into second database. All saved!!!") 
                       )
                       .catch(err => {
 
                           var CreditPrimary = Credit("primary");
-                          console.log("ERROR: Something went wrong saving into second database. First database credit restored!")
+                          logger.error(err)
                           return CreditPrimary.findOneAndUpdate({
                             _id: credit[0]._id
                           }, {
@@ -36,11 +37,11 @@ let creditSave = function (amount, res) {
                   }
                 })
                 .catch(error => {
-                  return error
+                  return logger.error(error)
                 })
             })
             .catch(err => {
-              return err
+              return logger.error(err)
             }) } 
         else { 
 
@@ -53,22 +54,23 @@ let creditSave = function (amount, res) {
               "amount": credit[0].amount + amount
             })
             .then(credit => {
-
+              logger.info("Credit Primary Updated!")
               var CreditReplica = Credit("replica");
 
               return Credit("replica").find({})
                 .then(credit2 => {
-
+                  
                   return CreditReplica.findOneAndUpdate({
                       _id: credit2[0]._id
                     }, {
                       "amount": credit2[0].amount + amount
                     })
                     .then(credit2 => {
-                      console.log("Updated second credit database. All saved!!")
+                      logger.info("Updated second credit database. All saved!!")
 
                     })
-                    .catch(credit2 => {
+                    .catch(err2 => {
+                      logger.error(err2)
                       var CreditPrimary = Credit("primary");
 
                       return CreditPrimary.findOneAndUpdate({
@@ -76,19 +78,19 @@ let creditSave = function (amount, res) {
                         }, {
                           "amount": credit[0].amount - amount
                         })
-                        .then(res.status(500).send("Error updating credit in replica. Restoring credit into first database"))
+                        .then(logger.info("Error updating credit in replica. Restoring credit into first database"))
                     })
                 })
 
             })
             .catch(credit => { //si no se guarda en primera
-              console.log("Error updating credit in first database")
+              logger.error("Error updating credit in first database")
             })
         }
       })
   }
   else {
-    console.log("One Database KO, retry later!")
+    logger.warn("One Database KO, retry later!")
   }
 }
 
