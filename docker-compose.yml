@@ -61,7 +61,7 @@ services:
       - replica_credit
       - redis
   messageapp:
-    image: cabify/backend-bootcamp-messageapp:exercise10
+    image: cabify/backend-bootcamp-messageapp:latest
     ports:
       - "3000:3000"
 

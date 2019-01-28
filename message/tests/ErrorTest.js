@@ -11,7 +11,7 @@ const axios = require("axios");
 
 axiosError("", "")
   .then(resp => {
-    console.log("Destination & Body cannot be empties"); //500 ERROR porque son string vacias
+    console.log("Destination & Body cannot be empties");
   })
   .catch(e => {
     console.log("OK");
@@ -21,7 +21,7 @@ axiosError("", "")
 
 axiosError(1, 2)
   .then(resp => {
-    console.log("Destination & Body must be strings"); //500 error porque es un numero en un string
+    console.log("Destination & Body must be strings");
   })
   .catch(e => {
     console.log("OK");
@@ -54,7 +54,7 @@ axiosError(
     "body"
   )
   .then(resp => {
-    console.log("Too long!!!"); //500 error, demasiados caracteres, limitar a 20 aprox;
+    console.log("Too long!!!"); 
   })
   .catch(e => {
     console.log("OK");
@@ -63,7 +63,7 @@ axiosError(
 ////7
 axiosError("🖖👽", "body")
   .then(resp => {
-    console.log("Destination is an email, not emojis allowed"); //500 error, no puede poner emojis
+    console.log("Destination is an email, not emojis allowed"); 
   })
   .catch(e => {
     console.log("OK");
@@ -72,7 +72,7 @@ axiosError("🖖👽", "body")
 /////8
 axiosError("null", "null")
   .then(resp => {
-    console.log("Destination & Body should be strings"); //500 error, no puede ser null
+    console.log("Destination & Body should be strings"); 
   })
   .catch(e => {
     console.log("OK");

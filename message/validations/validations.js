@@ -1,9 +1,3 @@
-const uuidv4 = require('uuid/v4');
-const pendingMessageSave = require('../clients/pendingMessageSave')
-const {
-  creditQueue
-} = require('../messageQueue/messageQueue');
-
 let validation = function (req) {
 
   const {
@@ -19,9 +13,7 @@ let validation = function (req) {
     return false
 
   } else {
-
     return true
-
   }
 }
 

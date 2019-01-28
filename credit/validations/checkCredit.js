@@ -1,6 +1,6 @@
 const Credit = require("../models/UserCredit");
 
-let creditValidation = function (job) {
+let checkCredit = function (job) {
 
     return Credit("primary").find({})
     .then(credit => {
@@ -42,4 +42,4 @@ let creditValidation = function (job) {
 
 }
 
-module.exports = creditValidation;
+module.exports = checkCredit;
