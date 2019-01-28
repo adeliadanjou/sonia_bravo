@@ -26,8 +26,7 @@ postMessageRoute.post('/messages', (req, res, next) => {
 
 
 function prepareMessage(req) {
-    const myId = uuidv4()
-    // creo el objeto a añadir a add:   
+    const myId = uuidv4()  
     return {
         type: "Check Credit",
         myId: myId,
