@@ -114,4 +114,19 @@ services:
      - message3
     ports:
      - "80:80"
- 
+
+  
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+     - "3005:3000"
+
+
+  prometheus:
+    image: prom/prometheus:0.18.0
+    volumes:
+     - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+     - '-config.file=/etc/prometheus/prometheus.yml'
+    ports:
+     - '9090:9090'
