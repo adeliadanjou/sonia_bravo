@@ -115,12 +115,10 @@ services:
     ports:
      - "80:80"
 
-  
   grafana:
     image: grafana/grafana:latest
     ports:
      - "3005:3000"
-
 
   prometheus:
     image: prom/prometheus:0.18.0

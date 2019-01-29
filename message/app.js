@@ -7,6 +7,7 @@ const postMessageRoute = require('./routes/postMessages')
 const getMessagesRoute = require('./clients/getMessages')
 const getMessagesStatus = require('./clients/getMessagesStatus')
 const getHealth = require('./routes/getHealth')
+const getMetrics = require('./routes/getMetrics')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -16,6 +17,7 @@ app.use('/', postMessageRoute)
 app.use('/', getMessagesRoute)
 app.use('/', getMessagesStatus)
 app.use('/', getHealth)
+app.use('/', getMetrics)
 
 app.listen(process.env.PORT, () => {
   console.log('¡A la escucha en el puerto: 9007!')

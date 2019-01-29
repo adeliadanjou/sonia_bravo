@@ -6,3 +6,6 @@ scrape_configs:
     - job_name: 'prometheus'
       target_groups:
           - targets: ['localhost:9090']
+    - job_name: 'messages'
+      target_groups:
+          - targets: ['sonia_bravo_message3_1:9007', 'sonia_bravo_message2_1:9008', 'sonia_bravo_message1_1:9009']
