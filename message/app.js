@@ -7,11 +7,12 @@ const postMessageRoute = require('./routes/postMessages')
 const getMessagesRoute = require('./clients/getMessages')
 const getMessagesStatus = require('./clients/getMessagesStatus')
 const getHealth = require('./routes/getHealth')
-const getMetrics = require('./routes/getMetrics')
+const {getMetrics, metricsCounter} = require('./routes/getMetrics')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.use(metricsCounter)
 
 app.use('/', postMessageRoute)
 app.use('/', getMessagesRoute)
